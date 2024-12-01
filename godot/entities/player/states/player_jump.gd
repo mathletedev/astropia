@@ -1,8 +1,8 @@
 extends State
 
 @export var player: Player
-@export var jump_speed: float = 600
-@export var gravity_multiplier: float = 0.4
+@export var jump_speed: float = 300
+@export var gravity_multiplier: float = 0.3
 
 
 func enter():

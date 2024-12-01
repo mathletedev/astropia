@@ -1,71 +1,89 @@
-[gd_scene load_steps=12 format=3 uid="uid://bip8xnldpo7ci"]
+[gd_scene load_steps=17 format=3 uid="uid://bip8xnldpo7ci"]
 
 [ext_resource type="Script" path="res://entities/player/player.gd" id="1_0eni4"]
-[ext_resource type="Texture2D" uid="uid://87xetpv4xwlc" path="res://art/character_walk.png" id="2_spehr"]
+[ext_resource type="Texture2D" uid="uid://87xetpv4xwlc" path="res://assets/character_walk.png" id="2_g72ih"]
 [ext_resource type="Script" path="res://lib/state_machine.gd" id="3_t5w6x"]
 [ext_resource type="Script" path="res://entities/player/states/player_idle.gd" id="4_f7wta"]
-[ext_resource type="Script" path="res://entities/player/player_run.gd" id="5_wnh2m"]
-[ext_resource type="Script" path="res://entities/player/player_jump.gd" id="6_b56mo"]
-[ext_resource type="Script" path="res://entities/player/player_fall.gd" id="7_5xnj7"]
+[ext_resource type="Script" path="res://entities/player/states/player_run.gd" id="5_wnh2m"]
+[ext_resource type="Script" path="res://entities/player/states/player_jump.gd" id="6_b56mo"]
+[ext_resource type="Script" path="res://entities/player/states/player_fall.gd" id="7_5xnj7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_graq8"]
 
-[sub_resource type="Animation" id="Animation_mga6i"]
-resource_name = "walk"
-length = 0.7
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_6u4ml"]
+atlas = ExtResource("2_g72ih")
+region = Rect2(0, 0, 16, 24)
 
-[sub_resource type="Animation" id="Animation_e6uan"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_qycnp"]
+atlas = ExtResource("2_g72ih")
+region = Rect2(16, 0, 16, 24)
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ksa1n"]
-_data = {
-"RESET": SubResource("Animation_e6uan"),
-"walk": SubResource("Animation_mga6i")
-}
+[sub_resource type="AtlasTexture" id="AtlasTexture_jisdn"]
+atlas = ExtResource("2_g72ih")
+region = Rect2(32, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ceae"]
+atlas = ExtResource("2_g72ih")
+region = Rect2(48, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jrigp"]
+atlas = ExtResource("2_g72ih")
+region = Rect2(64, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g11r4"]
+atlas = ExtResource("2_g72ih")
+region = Rect2(80, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yd7g2"]
+atlas = ExtResource("2_g72ih")
+region = Rect2(96, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7bhbk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6u4ml")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qycnp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jisdn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ceae")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jrigp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g11r4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yd7g2")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_0eni4")
-max_speed = 400.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(4, 4)
 shape = SubResource("CapsuleShape2D_graq8")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(3, 5)
-texture = ExtResource("2_spehr")
-hframes = 7
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
-libraries = {
-"": SubResource("AnimationLibrary_ksa1n")
-}
+position = Vector2(0, 3)
+sprite_frames = SubResource("SpriteFrames_7bhbk")
+animation = &"idle"
+autoplay = "idle"
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_t5w6x")

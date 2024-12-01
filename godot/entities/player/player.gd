@@ -1,10 +1,10 @@
 class_name Player
 extends CharacterBody2D
 
-@export var max_speed: float = 500
+@export var max_speed: float = 200
 @export var acceleration: float = 10
 @export var deadzone_x: float = 0.1
-@export var default_gravity_multiplier: float = 3
+@export var default_gravity_multiplier: float = 2
 @export var friction: float = 2000
 @export var air_resistance: float = 400
 
@@ -25,6 +25,10 @@ func move(delta: float, resistance: float, gravity_multiplier := 1.0):
 
 func _physics_process(_delta: float):
 	move_and_slide()
-	
-func _ready():
-	$Sprite2D/AnimationPlayer.play("walk")
+
+	if velocity.x > deadzone_x and not $AnimatedSprite2D.flip_h:
+		$AnimatedSprite2D.flip_h = true
+	if velocity.x < -deadzone_x and $AnimatedSprite2D.flip_h:
+		$AnimatedSprite2D.flip_h = false
+
+	$AnimatedSprite2D.play($StateMachine.current_state.name.to_lower())
