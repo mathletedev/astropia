@@ -32,7 +32,6 @@ func _physics_process(_delta: float):
 		$AnimatedSprite2D.flip_h = false
 
 	var animation_name: String = $StateMachine.current_state.name.to_lower()
-	print(animation_name)
 
 	# TODO: add jump and fall animations
 	match animation_name:

@@ -28,6 +28,7 @@ noise = SubResource("FastNoiseLite_dl20f")
 [node name="Main" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("follow")]
+zoom = Vector2(2, 2)
 script = ExtResource("1_nlg01")
 follow = NodePath("../Player")
 
