@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://entities/player/states/player_fall.gd" id="7_5xnj7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_graq8"]
+radius = 8.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_42e8y"]
 atlas = ExtResource("2_ht0a8")

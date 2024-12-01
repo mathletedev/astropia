@@ -1,38 +1,43 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4q4c81d8h0fn"]
+[gd_scene load_steps=9 format=3 uid="uid://b4q4c81d8h0fn"]
 
 [ext_resource type="Script" path="res://entities/camera/camera.gd" id="1_nlg01"]
-[ext_resource type="Texture2D" uid="uid://cvbys4cvkf7xt" path="res://icon.svg" id="1_nlnfe"]
 [ext_resource type="PackedScene" uid="uid://bip8xnldpo7ci" path="res://entities/player/player.tscn" id="1_yp3vn"]
+[ext_resource type="Script" path="res://entities/tilemap/tilemap.gd" id="3_jaouv"]
+[ext_resource type="Texture2D" uid="uid://cd0arw7n6mnvk" path="res://assets/black_tile.png" id="3_oakk4"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m2s05"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_progu"]
+texture = ExtResource("3_oakk4")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_gv37q"]
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_progu")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dl20f"]
+noise_type = 0
+seed = 2
+frequency = 0.05
+fractal_octaves = 4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fvaxq"]
+width = 400
+height = 400
+noise = SubResource("FastNoiseLite_dl20f")
 
 [node name="Main" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("follow")]
-zoom = Vector2(2, 2)
 script = ExtResource("1_nlg01")
 follow = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("1_yp3vn")]
 
-[node name="Ground" type="StaticBody2D" parent="."]
-position = Vector2(0, 150)
-scale = Vector2(100, 0.5)
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(-200, 100)
+tile_set = SubResource("TileSet_gv37q")
+script = ExtResource("3_jaouv")
 
-[node name="Sprite2D" type="Sprite2D" parent="Ground"]
-texture = ExtResource("1_nlnfe")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
-scale = Vector2(6.5, 6.5)
-shape = SubResource("RectangleShape2D_m2s05")
-
-[node name="Ground2" type="StaticBody2D" parent="."]
-position = Vector2(0, 100)
-scale = Vector2(3, 0.5)
-
-[node name="Sprite2D" type="Sprite2D" parent="Ground2"]
-texture = ExtResource("1_nlnfe")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground2"]
-scale = Vector2(6.5, 6.5)
-shape = SubResource("RectangleShape2D_m2s05")
+[node name="Noise" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("NoiseTexture2D_fvaxq")

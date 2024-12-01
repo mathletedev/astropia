@@ -1,7 +1,7 @@
 extends State
 
 @export var player: Player
-@export var jump_speed: float = 300
+@export var jump_speed: float = 350
 @export var gravity_multiplier: float = 0.3
 
 

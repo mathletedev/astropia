@@ -15,11 +15,11 @@ func _ready():
 
 
 func physics_process(delta: float):
-	if abs(player.velocity.x) < player.deadzone_x:
-		transition.emit(self, "idle")
-
 	if Input.is_action_pressed("jump"):
 		transition.emit(self, "jump")
+
+	if abs(player.velocity.x) < player.deadzone_x:
+		transition.emit(self, "idle")
 
 	if not player.is_on_floor():
 		coyote_timer.start()
