@@ -31,4 +31,13 @@ func _physics_process(_delta: float):
 	if velocity.x < -deadzone_x and $AnimatedSprite2D.flip_h:
 		$AnimatedSprite2D.flip_h = false
 
-	$AnimatedSprite2D.play($StateMachine.current_state.name.to_lower())
+	var animation_name: String = $StateMachine.current_state.name.to_lower()
+
+	# TODO: add jump and fall animations
+	match animation_name:
+		"jump":
+			animation_name = "idle"
+		"fall":
+			animation_name = "idle"
+
+	$AnimatedSprite2D.play(animation_name)

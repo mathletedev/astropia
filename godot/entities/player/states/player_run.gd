@@ -1,7 +1,7 @@
 extends State
 
 @export var player: Player
-@export var coyote_time: float = 0.1
+@export var coyote_time: float = 0.05
 
 var coyote_timer := Timer.new()
 

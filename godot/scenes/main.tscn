@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4q4c81d8h0fn"]
+[gd_scene load_steps=5 format=3 uid="uid://b4q4c81d8h0fn"]
 
+[ext_resource type="Script" path="res://entities/camera/camera.gd" id="1_nlg01"]
 [ext_resource type="Texture2D" uid="uid://cvbys4cvkf7xt" path="res://icon.svg" id="1_nlnfe"]
 [ext_resource type="PackedScene" uid="uid://bip8xnldpo7ci" path="res://entities/player/player.tscn" id="1_yp3vn"]
 
@@ -7,14 +8,16 @@
 
 [node name="Main" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("follow")]
 zoom = Vector2(2, 2)
+script = ExtResource("1_nlg01")
+follow = NodePath("../Player")
 
 [node name="Player" parent="." instance=ExtResource("1_yp3vn")]
 
 [node name="Ground" type="StaticBody2D" parent="."]
-position = Vector2(0, 200)
-scale = Vector2(100, 1)
+position = Vector2(0, 150)
+scale = Vector2(100, 0.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="Ground"]
 texture = ExtResource("1_nlnfe")
@@ -25,7 +28,7 @@ shape = SubResource("RectangleShape2D_m2s05")
 
 [node name="Ground2" type="StaticBody2D" parent="."]
 position = Vector2(0, 100)
-scale = Vector2(5, 1)
+scale = Vector2(3, 0.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="Ground2"]
 texture = ExtResource("1_nlnfe")
