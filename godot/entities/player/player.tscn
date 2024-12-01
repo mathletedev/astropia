@@ -50,6 +50,7 @@ _data = {
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_0eni4")
+max_speed = 400.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(4, 4)
