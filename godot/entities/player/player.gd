@@ -25,3 +25,6 @@ func move(delta: float, resistance: float, gravity_multiplier := 1.0):
 
 func _physics_process(_delta: float):
 	move_and_slide()
+	
+func _ready():
+	$Sprite2D/AnimationPlayer.play("walk")
