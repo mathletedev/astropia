@@ -10,20 +10,28 @@ func _ready():
 	for child in get_children():
 		if child is State:
 			states[child.name.to_lower()] = child
-			child.transition.connect(_on_transition)
+			child.transition.connect(on_transition)
+
+	initial_state.enter()
+	current_state = initial_state
 
 
-func _process(delta):
+func _input(event: InputEvent):
+	if current_state:
+		current_state.input(event)
+
+
+func _process(delta: float):
 	if current_state:
 		current_state.process(delta)
 
 
-func _physics_process(delta):
+func _physics_process(delta: float):
 	if current_state:
 		current_state.physics_process(delta)
 
 
-func _on_transition(from_state: State, to_state_name: String):
+func on_transition(from_state: State, to_state_name: String):
 	if from_state != current_state:
 		return
 

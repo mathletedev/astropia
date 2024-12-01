@@ -8,7 +8,6 @@
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_yp3vn")]
-jump_multiplier = 0.5
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(0, 500)

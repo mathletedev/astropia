@@ -12,6 +12,10 @@ func exit():
 	pass
 
 
+func input(_event: InputEvent):
+	pass
+
+
 func process(_delta: float):
 	pass
 
