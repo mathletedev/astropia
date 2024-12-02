@@ -19,17 +19,11 @@ func _ready():
 
 
 func generate_tiles():
+	var cells = []
 	for y in dimensions.y:
 		for x in dimensions.x:
-			var tile = get_tile(noise.get_noise_2d(x, y))
-			if tile == Vector2i(-1, -1):
-				continue
-
-			set_cell(Vector2i(x, y), 1, tile)
-
-
-func get_tile(noise_value: float):
-	if noise_value > 0:
-		return Vector2i(0, 0)
-	else:
-		return Vector2i(-1, -1)
+			var tile = noise.get_noise_2d(x, y)
+			if (tile < 0.3):
+				cells.append(Vector2(x,y))
+				
+	set_cells_terrain_connect(cells,0,0,0)

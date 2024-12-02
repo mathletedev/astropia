@@ -235,6 +235,7 @@ follow = NodePath("../Player")
 position = Vector2(-200, 100)
 tile_set = SubResource("TileSet_gv37q")
 script = ExtResource("3_jaouv")
+dimensions = null
 
 [node name="Noise" type="Sprite2D" parent="."]
 visible = false
